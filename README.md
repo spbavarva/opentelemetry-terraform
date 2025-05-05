@@ -1,5 +1,11 @@
 # OpenTelemetry EKS Project – Post-Terraform Instructions
 
+install choco package manager and install terraform
+
+```powershell
+choco install terraform
+```
+
 ## Terraform Steps
 
 Clone the remo and run the following commands to deploy the infrastructure:
