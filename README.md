@@ -16,7 +16,9 @@ terraform apply
 
 Once terraform apply is complete, SSH into the eks-client instance using:
 
+```bash
 ssh -i otel-docker-key ec2-user@<public-ip>
+```
 
 Replace <public-ip> with the EC2 IP. you can find it in the EC2 console and instance name is `eks-client`
 
