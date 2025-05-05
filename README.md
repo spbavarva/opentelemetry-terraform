@@ -67,5 +67,5 @@ helm repo update
 
 ```bash
 kubectl create namespace otel-demo
-help install opentelemetry-demo open-telemetry/opentelemetry-demo --namespace otel-demo
+helm install opentelemetry-demo open-telemetry/opentelemetry-demo --namespace otel-demo
 ```
