@@ -77,3 +77,13 @@ helm repo update
 kubectl create namespace otel-demo
 helm install opentelemetry-demo open-telemetry/opentelemetry-demo --namespace otel-demo
 ```
+
+
+
+## Destroy
+
+```bash
+terraform destroy
+```
+
+once you are done, apply this command and say "yes" when prompt
