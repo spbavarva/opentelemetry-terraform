@@ -1,3 +1,8 @@
+# Added
+provider "kubernetes" {
+  config_path = "${pathexpand("~/.kube/config")}"
+}
+
 provider "aws" {
   region = "us-east-1"
 }
@@ -166,4 +171,8 @@ module "eks" {
       groups   = ["system:masters"]
     }
   ]
+  providers = {
+    kubernetes = kubernetes
+    }
+
 }
