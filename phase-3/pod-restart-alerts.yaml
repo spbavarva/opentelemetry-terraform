@@ -1,0 +1,20 @@
+# Phase 3 – Pod-Restart PrometheusRule :contentReference[oaicite:2]{index=2}:contentReference[oaicite:3]{index=3}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pod-restart-alerts
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus
+    role: alert-rules
+spec:
+  groups:
+  - name: operator-restart
+    rules:
+    - alert: HighPodRestarts
+      expr: kube_pod_container_status_restarts_total{pod="prometheus-kube-prometheus-operator-676ff55fb5-jqz99",namespace="monitoring"} > 1
+      labels:
+        severity: warning
+      annotations:
+        summary:     "Operator pod restartCount >1"
+        description: "Pod prometheus-kube-prometheus-operator-676ff55fb5-jqz99 has restarted {{ $value }} times."
