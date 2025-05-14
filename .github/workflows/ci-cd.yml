@@ -19,6 +19,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           role-to-assume: arn:aws:iam::412134929535:role/github-eks-deploy-role
           role-session-name: GitHubActionsSession
+          role-duration-seconds: 3600
 
 
       - name: Update kubeconfig for EKS
