@@ -32,13 +32,12 @@ jobs:
           helm repo update
           helm upgrade --install otel-release open-telemetry/opentelemetry-demo \
             --namespace otel \
-            --create-namespace \
-            --set image.repository=ghcr.io/open-telemetry/opentelemetry-demo \
-            --set image.tag=latest || {
+            --create-namespace || {
               echo "Helm upgrade failed. Rolling back..."
               helm rollback otel-release
               exit 1
             }
+
 
       - name: Verify Deployment
         run: |
