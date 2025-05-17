@@ -32,9 +32,7 @@ jobs:
           helm repo update
           helm upgrade --install otel-release open-telemetry/opentelemetry-demo \
             --namespace otel \
-            --create-namespace \
-            --set image.repository=spbavarva/otel-app \
-            --set image.tag=latest || {
+            --create-namespace || {
               echo "Helm upgrade failed. Rolling back..."
               helm rollback otel-release
               exit 1
