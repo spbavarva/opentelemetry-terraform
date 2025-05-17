@@ -61,14 +61,6 @@ resource "aws_instance" "eks_client" {
               yum update -y
               yum install unzip -y
 
-              # Docker
-              sudo yum install docker -y
-              sudo service docker start
-              sudo usermod -aG docker ec2-user
-
-              # Wait to ensure Docker is ready
-              sleep 15
-
               # Install AWS CLI
               curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
               unzip awscliv2.zip
@@ -95,14 +87,6 @@ resource "aws_instance" "eks_client" {
 
               # Mark all binaries available
               hash -r
-
-              # Docker login (replace with your DockerHub username/password or use secrets injection)
-              echo "Sneh!Docker99085" | docker login -u "spbavarva" --password-stdin
-
-              # Pull, tag, and push
-              docker pull ghcr.io/open-telemetry/demo:latest
-              docker tag ghcr.io/open-telemetry/demo:latest spbavarva/otel-app:latest
-              docker push spbavarva/otel-app:latest
               EOF
 
   tags = {
