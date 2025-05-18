@@ -85,6 +85,12 @@ resource "aws_instance" "eks_client" {
               # Helm
               curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
+              # Install Docker
+              yum install -y docker
+              systemctl start docker
+              systemctl enable docker
+              usermod -aG docker ec2-user
+
               # Mark all binaries available
               hash -r
               EOF
