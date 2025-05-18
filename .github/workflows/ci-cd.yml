@@ -41,15 +41,8 @@ jobs:
           set -e
           helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
           helm repo update
-          helm upgrade --install otel-release open-telemetry/opentelemetry-demo \
-            --namespace otel \
-            --create-namespace \
-            --set frontend.image.repository=$IMAGE_NAME \
-            --set frontend.image.tag=$IMAGE_TAG || {
-              echo "Helm upgrade failed. Rolling back..."
-              helm rollback otel-release
-              exit 1
-            }
+          kubectl create namespace otel-demo
+          helm install opentelemetry-demo open-telemetry/opentelemetry-demo --namespace otel-demo
 
       - name: Verify Deployment
         run: |
