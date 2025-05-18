@@ -48,8 +48,3 @@ jobs:
           echo "❌ Helm deployment failed. Attempting rollback..."
           REVISION=$(helm history otel-release -n otel | awk 'NR==2{print $1}')
           helm rollback otel-release $REVISION -n otel || echo "⚠️ Rollback failed too."
-
-
-      - name: Verify Deployment
-        run: |
-          helm history otel-release -n otel
