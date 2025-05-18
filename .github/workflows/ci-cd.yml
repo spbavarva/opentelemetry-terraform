@@ -31,10 +31,17 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push Docker Image
-        run: |
-          docker build -t $IMAGE_NAME:$IMAGE_TAG ./src/frontend
-          docker push $IMAGE_NAME:$IMAGE_TAG
+      - name: Verify Docker Login
+        run: docker info
+
+      - name: Build Docker Image
+        run: docker build -t $IMAGE_NAME:$IMAGE_TAG ./src/frontend
+
+      - name: Login to DockerHub (hardcoded)
+        run: echo "dckr_pat_bOhvokqPevgP5QYohly5owbJeIQ" | docker login -u "spbavarva" --password-stdin
+
+      - name: Push Docker Image
+        run: docker push $IMAGE_NAME:$IMAGE_TAG
 
       - name: Update kubeconfig for EKS
         run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
