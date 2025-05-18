@@ -41,10 +41,15 @@ jobs:
           set -e
           helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
           helm repo update
-          kubectl create namespace otel-demo
-          helm install opentelemetry-demo open-telemetry/opentelemetry-demo --namespace otel-demo
+
+      - name: Rollback on Failure
+        if: failure()
+        run: |
+          echo "❌ Helm deployment failed. Attempting rollback..."
+          REVISION=$(helm history otel-release -n otel | awk 'NR==2{print $1}')
+          helm rollback otel-release $REVISION -n otel || echo "⚠️ Rollback failed too."
+
 
       - name: Verify Deployment
         run: |
-          kubectl get all -n otel
           helm history otel-release -n otel
