@@ -1,21 +1,30 @@
-# Phase 3 – Alertmanager SMTP (SES) config :contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
-global:
-  resolve_timeout: 5m
-  smtp_smarthost: 'email-smtp.us-east-1.amazonaws.com:587'
-  smtp_from:      'pbhamid1@umd.edu'
-  smtp_auth_username: 'YOUR_SES_SMTP_USER'
-  smtp_auth_password: 'YOUR_SES_SMTP_PASS'
-  smtp_require_tls:   true
+apiVersion: v1
+kind: Secret
+metadata:
+  name: alertmanager-kube-prometheus-stack-alertmanager
+  namespace: monitoring
+  labels:
+    app: alertmanager
+    release: kube-prometheus-stack
+type: Opaque
+stringData:
+  alertmanager.yaml: |
+    global:
+      resolve_timeout: 5m
+      smtp_smarthost: 'email-smtp.us-east-1.amazonaws.com:587'
+      smtp_from: '${EMAIL}'
+      smtp_auth_username: '${SMTP_USERNAME}'
+      smtp_auth_password: '${SMTP_PASSWORD}'
+      smtp_require_tls: true
 
-route:
-  group_by: ['alertname']
-  group_wait: 30s
-  group_interval: 5m
-  repeat_interval: 3h
-  receiver: 'email-notifications'
+    route:
+      receiver: 'email-notifications'
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 1h
 
-receivers:
-- name: 'email-notifications'
-  email_configs:
-  - to: 'pbhamid1@umd.edu'
-    send_resolved: true
+    receivers:
+    - name: 'email-notifications'
+      email_configs:
+      - to: '${EMAIL}'
+        send_resolved: true
