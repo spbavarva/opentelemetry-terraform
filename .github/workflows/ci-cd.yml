@@ -50,4 +50,4 @@ jobs:
           helm rollback otel-release $REVISION -n otel || echo "⚠️ Rollback failed too."
 
       - name: Deployment Success
-        run: echo "Yay, Deployment and monitoring setup completed successfully!"
+        run: echo "Yay! Deployment and monitoring setup completed successfully!"
