@@ -49,5 +49,5 @@ jobs:
           REVISION=$(helm history otel-release -n otel | awk 'NR==2{print $1}')
           helm rollback otel-release $REVISION -n otel || echo "⚠️ Rollback failed too."
 
-      - name: ✅ Deployment Success
+      - name: Deployment Success
         run: echo "Yay, Deployment and monitoring setup completed successfully!"
