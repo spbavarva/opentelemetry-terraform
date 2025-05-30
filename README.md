@@ -8,7 +8,7 @@ choco install terraform
 
 ## Terraform Steps
 
-Clone the remo and run the following commands to deploy the infrastructure:
+Clone the repo and run the following commands to deploy the infrastructure:
 
 ```bash
 terraform init
